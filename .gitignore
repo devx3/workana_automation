@@ -3,3 +3,5 @@ venv/
 .vscode
 *.log
 tests/credentials.json
+__pycache__/
+*.pyc

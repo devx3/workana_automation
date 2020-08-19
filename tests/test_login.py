@@ -28,19 +28,42 @@ class TestLogin(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
 
-    def test_load_login_credentials(self):
+    def test_login_workana_is_ok(self):
+        login = LoginPage(self.driver)
+        assert login.is_title_matches(), "Isn't login page..."
+
+        # Check if email and password is not blank
+        self.assertNotEqual(
+            login.email,
+            '',
+            msg="Email não pode ser vazio"
+        )
+        self.assertNotEqual(
+            login.password,
+            '',
+            msg="Password não pode ser vazio"
+        )
+
+        # Check if credentials matches
         with open(os.path.join(os.path.dirname(__file__), 'credentials.json')) as fname:
             data = json.load(fname)
 
         self.assertTupleEqual(
-            LoginPage(self.driver).load_login_credentials(),
+            (login.email, login.password),
             (data['email'], data['password'])
         )
 
-    def test_login_workana_is_ok(self):
-        assert LoginPage(self.driver).is_title_matches(), "Isn't login page..."
+        # Check if has error on fill the fields
+        self.assertTrue(
+            login.fill_input_fields(),
+            msg="Erro ao preencher campos"
+        )
 
-        LoginPage(self.driver).fill_input_fields()
+        # Check if is logged in
+        self.assertTrue(
+            login.is_logged_in(),
+            msg="Erro: Não estamos logados"
+        )
 
 
 if __name__ == "__main__":
