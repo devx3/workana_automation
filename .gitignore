@@ -1,0 +1,5 @@
+config.json
+venv/
+.vscode
+*.log
+tests/credentials.json
