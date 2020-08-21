@@ -28,21 +28,30 @@ class TestLogin(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
 
+    def test_is_title_not_match(self):
+        with self.assertRaises(AssertionError):
+            self.driver.get('https://workana.com')
+            login = LoginPage(self.driver)
+
+    def test_email_and_password_could_not_be_empty_or_integer(self):
+        with self.assertRaises(AssertionError):
+            LoginPage(self.driver, password='umasenhaaqui')
+
+        with self.assertRaises(AssertionError):
+            LoginPage(self.driver, email='algumemail@qualquer.com', password=123456)
+
+        with self.assertRaises(AssertionError):
+            LoginPage(self.driver, email='')
+
+        with self.assertRaises(AssertionError):
+            LoginPage(self.driver, email=True, password=123456)
+
+    def test_login_workana_is_not_ok(self):
+        with self.assertRaises(AssertionError):
+            LoginPage(self.driver, 'umemailqualquer@aqui.com', 'senhadodjanho')
+
     def test_login_workana_is_ok(self):
         login = LoginPage(self.driver)
-        assert login.is_title_matches(), "Isn't login page..."
-
-        # Check if email and password is not blank
-        self.assertNotEqual(
-            login.email,
-            '',
-            msg="Email não pode ser vazio"
-        )
-        self.assertNotEqual(
-            login.password,
-            '',
-            msg="Password não pode ser vazio"
-        )
 
         # Check if credentials matches
         with open(os.path.join(os.path.dirname(__file__), 'credentials.json')) as fname:
@@ -53,15 +62,9 @@ class TestLogin(unittest.TestCase):
             (data['email'], data['password'])
         )
 
-        # Check if has error on fill the fields
-        self.assertTrue(
-            login.fill_input_fields(),
-            msg="Erro ao preencher campos"
-        )
-
         # Check if is logged in
         self.assertTrue(
-            login.is_logged_in(),
+            login._is_logged_in(),
             msg="Erro: Não estamos logados"
         )
 
