@@ -22,6 +22,10 @@ import math
 
 class TestUtils(unittest.TestCase):
 
+    def test_remaining_days_until_saturday_must_raise_an_error_if_date_is_not_string(self):
+        with self.assertRaises(AssertionError):
+            get_remaining_days_until_saturday(123)
+
     def test_get_remaining_days_until_saturday(self):
         self.assertIsInstance(
             get_remaining_days_until_saturday(),
@@ -31,8 +35,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(get_remaining_days_until_saturday(), 5)
 
     def test_get_remaining_days_must_not_return_zero(self):
-        saturday_weekday = datetime(2020, 8, 29).weekday()
-        self.assertNotEqual(get_remaining_days_until_saturday(saturday_weekday), 0)
+        self.assertNotEqual(get_remaining_days_until_saturday("2020-08-29"), 0)
 
     def test_get_remaining_proposes(self):
         self.assertIsInstance(
