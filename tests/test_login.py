@@ -28,27 +28,31 @@ class TestLogin(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
 
+    def test_is_title_matches(self):
+        login = LoginPage(self.driver)
+        self.assertTrue(login._is_title_matches)
+
     def test_is_title_not_match(self):
         with self.assertRaises(AssertionError):
             self.driver.get('https://workana.com')
-            login = LoginPage(self.driver)
+            login = LoginPage(self.driver).start()
 
     def test_email_and_password_could_not_be_empty_or_integer(self):
         with self.assertRaises(AssertionError):
-            LoginPage(self.driver, password='umasenhaaqui')
+            LoginPage(self.driver, password='umasenhaaqui').start()
 
         with self.assertRaises(AssertionError):
-            LoginPage(self.driver, email='algumemail@qualquer.com', password=123456)
+            LoginPage(self.driver, email='algumemail@qualquer.com', password=123456).start()
 
         with self.assertRaises(AssertionError):
-            LoginPage(self.driver, email='')
+            LoginPage(self.driver, email='').start()
 
         with self.assertRaises(AssertionError):
-            LoginPage(self.driver, email=True, password=123456)
+            LoginPage(self.driver, email=True, password=123456).start()
 
     def test_login_workana_is_not_ok(self):
         with self.assertRaises(AssertionError):
-            LoginPage(self.driver, 'umemailqualquer@aqui.com', 'senhadodjanho')
+            LoginPage(self.driver, 'umemailqualquer@aqui.com', 'senhadodjanho').start()
 
     def test_login_workana_is_ok(self):
         login = LoginPage(self.driver)
@@ -61,6 +65,8 @@ class TestLogin(unittest.TestCase):
             (login.email, login.password),
             (data['email'], data['password'])
         )
+
+        login.start()
 
         # Check if is logged in
         self.assertTrue(

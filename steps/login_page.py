@@ -9,16 +9,14 @@ class LoginPage(BasePage):
 
     def __init__(self, driver, email=None, password=None):
         super().__init__(driver)
+
         self.email, self.password = (email, password)
-        self.start()
+        if self.email is None and self.password is None:
+            self.email, self.password = self._load_login_credentials()
 
     def start(self):
         ''' Bootstrap of the application '''
         assert self._is_title_matches(), 'Title not match... Is the login page?'
-
-        if self.email is None and self.password is None:
-            self.email, self.password = self._load_login_credentials()
-
         assert self.email is not None, 'Email cannot be None'
         assert self.password is not None, 'Password cannot be None'
         assert self.email is not '', 'Email cannot be empty'

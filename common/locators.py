@@ -9,7 +9,18 @@ class LoginPageLocators(object):
 
 
 class DashboardPageLocators(object):
-    pass
+    FREELA_NAME = (
+        By.XPATH, '//*[contains(@class, "user-info")]/*[contains(@class, "h4 user-name")]/span'
+    )
+    TOTAL_AMOUNT = (
+        By.XPATH, '//p[contains(text(), "Saldo")]/preceding-sibling::h4'
+    )
+    CONNECTIONS_AVAILABLE = (
+        By.XPATH, '//span[contains(text(), "Conexões sem")]/following-sibling::span/strong'
+    )
+    TOTAL_CONNECTIONS = (
+        By.XPATH, '//span[contains(text(), "Conexões sem")]/following-sibling::span/span[2]'
+    )
 
 
 class ProjectsPageLocators(object):
