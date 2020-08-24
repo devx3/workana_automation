@@ -31,6 +31,7 @@ class LoginPage(BasePage):
         ''' Load credentials from config file '''
         with open(os.path.join(os.getcwd(), 'config.json')) as f_config:
             config = json.load(f_config)
+            config = config['credentials']
             email = config['email']
             password = config['password']
 

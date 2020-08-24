@@ -1,6 +1,6 @@
 {
-    "login": {
-        "login": "seuemailaqui@dominio.com",
-        "senha": "suasenhaaqui"
+    "credentials": {
+        "email": "seuemail@aqui.com",
+        "password": "suasenha"
     }
 }

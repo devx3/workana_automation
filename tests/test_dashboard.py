@@ -52,40 +52,39 @@ class TestDashboard(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
 
-    def test_is_title_matches(self):
-        self.assertTrue(self.dashboard._is_title_matches())
+    # def test_is_title_matches(self):
+    #     self.assertTrue(self.dashboard._is_title_matches())
 
-    def test_get_name_and_amount(self):
+    # def test_get_name_and_amount(self):
+    #     self.dashboard.collect()
+    #     self.assertIsNotNone(self.dashboard.name, msg="Name cannot be None")
+    #     self.assertIsNotNone(self.dashboard.total_ammount, msg="total_ammount cannot be None")
+
+    #     self.assertIsInstance(self.dashboard.name, str)
+    #     self.assertEqual(self.dashboard.name.upper(), 'LIZ')
+
+    #     self.assertIsNotNone(self.dashboard.total_ammount)
+    #     self.assertIsInstance(self.dashboard.total_ammount, float)
+
+    # def test_get_number_of_proposes_to_use(self):
+    #     self.dashboard.collect()
+    #     self.assertIsInstance(
+    #         self.dashboard._number_of_proposes_to_use(self.dashboard.connections_available),
+    #         int,
+    #         msg="Number of proposes must be an int"
+    #     )
+    #     self.assertEqual(
+    #         self.dashboard._number_of_proposes_to_use(self.dashboard.connections_available),
+    #         1
+    #     )
+
+    def test_get_num_proposes_of_the_day(self):
         self.dashboard.collect()
-        self.assertIsNotNone(self.dashboard.name, msg="Name cannot be None")
-        self.assertIsNotNone(self.dashboard.total_ammount, msg="total_ammount cannot be None")
+        self.assertEqual(self.dashboard.get_num_proposes(), 1)
+        pass
 
-        self.assertIsInstance(self.dashboard.name, str)
-        self.assertEqual(self.dashboard.name.upper(), 'LIZ')
-
-        self.assertIsNotNone(self.dashboard.total_ammount)
-        self.assertIsInstance(self.dashboard.total_ammount, float)
-
-        self.assertIsNotNone(self.dashboard.connections_available)
-        self.assertIsInstance(self.dashboard.connections_available, int)
-
-        self.assertIsNotNone(self.dashboard.total_connections)
-        self.assertIsInstance(self.dashboard.total_connections, int)
-
-        self.assertEqual(self.dashboard.connections_available, 5)
-        self.assertEqual(self.dashboard.total_connections, 5)
-
-    def test_get_number_of_proposes_to_use(self):
-        self.dashboard.collect()
-        self.assertIsInstance(
-            self.dashboard._number_of_proposes_to_use(self.dashboard.connections_available),
-            int,
-            msg="Number of proposes must be an int"
-        )
-        self.assertEqual(
-            self.dashboard._number_of_proposes_to_use(self.dashboard.connections_available),
-            1
-        )
+    def test_save_num_proposes_of_the_day(self):
+        pass
 
 
 if __name__ == "__main__":
