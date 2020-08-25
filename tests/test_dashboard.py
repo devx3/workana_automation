@@ -15,9 +15,8 @@ Tasks:
             PS: To get the rest of the days until the end of the week, just take the current day of
             the week - saturday number of the week.
 
-- [ ] Save the number of proposes done of the day (this is used to manage how much proposes we need
+- [x] Save the number of proposes done of the day (this is used to manage how much proposes we need
       to do)
-- [ ] Go to Projects Page...
 '''
 try:
     import sys
@@ -81,10 +80,10 @@ class TestDashboard(unittest.TestCase):
     def test_get_num_proposes_of_the_day(self):
         self.dashboard.collect()
         self.assertEqual(self.dashboard.get_num_proposes(), 1)
-        pass
 
-    def test_save_num_proposes_of_the_day(self):
-        pass
+    def test_save_connections_info(self):
+        self.dashboard.collect()
+        self.assertTrue(self.dashboard.save_connections_info())
 
 
 if __name__ == "__main__":

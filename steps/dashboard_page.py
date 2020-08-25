@@ -1,4 +1,5 @@
 from selenium.webdriver.common.keys import Keys
+from persisters.config import Config
 from common.locators import DashboardPageLocators
 from common.utils import get_remaining_proposes_per_day
 from steps.base_page import BasePage
@@ -72,3 +73,17 @@ class DashboardPage(BasePage):
     def _number_of_proposes_to_use(self, current_proposes: int):
         ''' Calculate how much proposes can you send today '''
         return get_remaining_proposes_per_day(current_proposes)
+
+    def get_num_proposes(self):
+        return self._number_of_proposes_to_use(self.connections_available)
+
+    def save_connections_info(self):
+        ''' Save total connections and connections available '''
+        config = Config()
+        config.up()
+        try:
+            config.update('connections.total', str(self.total_connections))
+            config.update('connections.current', str(self.connections_available))
+            return True
+        except Exception:
+            return False

@@ -1,3 +1,4 @@
+''' Remember: Saturday is the 5th day of the week '''
 try:
     import sys
     import os
@@ -32,7 +33,7 @@ class TestUtils(unittest.TestCase):
             int,
             msg="Remaining days must be an int"
         )
-        self.assertEqual(get_remaining_days_until_saturday(), 5)
+        self.assertEqual(get_remaining_days_until_saturday(), 5 - datetime.today().weekday())
 
     def test_get_remaining_days_must_not_return_zero(self):
         self.assertNotEqual(get_remaining_days_until_saturday("2020-08-29"), 0)
@@ -45,7 +46,10 @@ class TestUtils(unittest.TestCase):
         )
         for i in range(5, 130):
             with self.subTest(i=i):
-                self.assertEqual(get_remaining_proposes_per_day(i), math.floor(i / 5))
+                self.assertEqual(
+                    get_remaining_proposes_per_day(i),
+                    math.floor(i / (5 - datetime.today().weekday()))
+                )
 
 
 if __name__ == "__main__":
