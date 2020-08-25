@@ -1,6 +1,14 @@
 {
-    "credentials": {
-        "email": "seuemail@aqui.com",
-        "password": "suasenha"
+    "config": {
+        "credentials": {
+            "email": "seuemail@aqui.com",
+            "password": "suasenha"
+        },
+        "connections": {
+            "total": 0,
+            "current": 0,
+            "times_a_day": 3
+        }
     }
+    
 }
