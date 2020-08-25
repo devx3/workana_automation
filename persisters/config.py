@@ -32,3 +32,21 @@ class Config(object):
         if not self.file_exists():
             config_example = self.CONFIG_FILE+'.example'
             shutil.copyfile(config_example, self.CONFIG_FILE)
+
+    def update(self, attribute, value):
+        attribute = str(attribute)
+        value = str(value)
+        assert isinstance(attribute, str), "Attribute must be a string"
+        assert '.' in attribute, "Attribute must be separated by dot"
+        assert isinstance(value, str), "Value must be a string"
+
+        section, configuration = attribute.split('.')
+
+        self.config['config'][section][configuration] = value
+
+        try:
+            with open(self.CONFIG_FILE, 'w') as file:
+                json.dump(self.config, file, indent=4)
+            return True
+        except Exception:
+            return False

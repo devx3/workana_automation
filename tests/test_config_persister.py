@@ -21,6 +21,7 @@ import json
 class TestConfigPersister(unittest.TestCase):
     def setUp(self):
         self.config = Config()
+        self.config.up()
 
     def test_create_file_if_not_exists(self):
         self.config.create_file()
@@ -28,7 +29,7 @@ class TestConfigPersister(unittest.TestCase):
     def test_if_config_file_exists(self):
         self.assertTrue(self.config.file_exists())
 
-    def test_attribute_of_get_must_be_an_string(self):
+    def test_attribute_of_get_must_be_a_string(self):
         with self.assertRaises(AssertionError):
             self.config.get(1234)
 
@@ -37,19 +38,20 @@ class TestConfigPersister(unittest.TestCase):
             self.config.get('connections')
 
     def test_get_config_total_connections(self):
-        self.config.up()
-        self.assertEqual(self.config.get('connections.total'), 5)
+        self.assertEqual(self.config.get('connections.total'), '5')
 
     def test_get_config_current_connections(self):
-        self.config.up()
-        self.assertEqual(self.config.get('connections.current'), 5)
+        self.assertEqual(self.config.get('connections.current'), '5')
 
     def test_get_config_times_a_day(self):
-        self.config.up()
-        self.assertEqual(self.config.get('connections.times_a_day'), 3)
+        self.assertEqual(self.config.get('connections.times_a_day'), '3')
 
-    def test_save_num_proposes_of_the_day(self):
-        pass
+    def test_update_configuration_attribute_need_to_have_dot(self):
+        with self.assertRaises(AssertionError):
+            self.config.update('connections', 'test')
+
+    def test_update_configuration_value(self):
+        self.assertTrue(self.config.update('connections.total', '5'))
 
 
 if __name__ == "__main__":

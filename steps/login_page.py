@@ -1,6 +1,7 @@
 from selenium.webdriver.common.keys import Keys
 from common.locators import LoginPageLocators
 from steps.base_page import BasePage
+from persisters.config import Config
 import json
 import os
 
@@ -29,11 +30,10 @@ class LoginPage(BasePage):
 
     def _load_login_credentials(self):
         ''' Load credentials from config file '''
-        with open(os.path.join(os.getcwd(), 'config.json')) as f_config:
-            config = json.load(f_config)
-            config = config['config']['credentials']
-            email = config['email']
-            password = config['password']
+        config = Config()
+        config.up()
+        email = config.get('credentials.email')
+        password = config.get('credentials.password')
 
         return email, password
 
